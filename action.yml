@@ -15,3 +15,5 @@ runs:
   image: "Dockerfile"
   args:
     - ${{ inputs.who-to-greet }}
+# Write codes for this action to execute in entrypoint.sh.
+# See [Example using a public action](https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action#example-using-a-public-action)

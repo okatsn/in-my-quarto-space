@@ -9,7 +9,6 @@ ADD entrypoint.sh /entrypoint.sh
 
 # Contents of entrypoint.sh (inlined)
 # The current directory is devspace!
-# Initiate @devspace is required since quarto uses IJulia
 RUN echo "Current path..." && \
     pwd && \
     echo "Initialize julia..." && \
@@ -20,5 +19,3 @@ RUN echo "Current path..." && \
 
 # Set the entrypoint to an empty array to ensure the script runs as expected
 ENTRYPOINT ["echo", "Hello", "World"]
-
-# Referring: https://github.com/dmnemec/copy_file_to_another_repo_action

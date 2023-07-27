@@ -2,10 +2,16 @@ FROM okatsn/my-quarto-space
 
 ADD entrypoint.sh /entrypoint.sh
 
-# RUN chmod +x /entrypoint.sh
-# chmod: changing permissions of '/entrypoint.sh': Operation not permitted
-# CHECKPOINT: Last attempt failed. This time, I `git update-index --chmod=+x entrypoint.sh` and commit and push. Refering the 3rd point of https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action#writing-the-action-code
+# CHECKPOINT: Due to the "exec /entrypoint.sh: exec format error", I'm trying the followings:
+# Contents of entrypoint.sh (inlined)
+RUN echo "Current path..." && \
+    pwd && \
+    echo "Initialize julia..." && \
+    julia --project=.@ -e 'using Pkg; Pkg.instantiate();' && \
+    echo "julia pkg status:" && \
+    julia --project=@. -e 'using Pkg; Pkg.status()'
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+# Set the entrypoint to an empty array to ensure the script runs as expected
+ENTRYPOINT []
 
 # Referring: https://github.com/dmnemec/copy_file_to_another_repo_action

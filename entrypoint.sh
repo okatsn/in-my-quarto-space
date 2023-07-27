@@ -13,7 +13,7 @@ julia --project=@. -e 'using Pkg; Pkg.status()'
 
 
 # KEYNOTE:
-# The following steps is required 
+# The following steps is required to prevent "permission denied: unknown". See https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action#writing-the-action-code
 # - git add entrypoint.sh
 # - git update-index --chmod=+x entrypoint.sh
 # - git add action.yml entrypoint.sh Dockerfile README.md

@@ -2,10 +2,10 @@ FROM okatsn/my-quarto-space
 
 ADD entrypoint.sh /entrypoint.sh
 
-# CHECKPOINT: Due to the "exec /entrypoint.sh: exec format error", I write the code in entrypoint.sh explicitly here, and replace
-# - `ENTRYPOINT [ "/entrypoint.sh" ]`
-# by
-# - ENTRYPOINT ["sleep", "infinity"]
+# CHECKPOINT: 
+# - `ENTRYPOINT [ "/entrypoint.sh" ]` caused "exec /entrypoint.sh: exec format error", so I write the code in entrypoint.sh explicitly in Dockerfile
+# - `ENTRYPOINT ["sleep", "infinity"]` results in a never-ending step
+
 
 # Contents of entrypoint.sh (inlined)
 RUN echo "Current path..." && \
@@ -16,6 +16,6 @@ RUN echo "Current path..." && \
     julia --project=@. -e 'using Pkg; Pkg.status()'
 
 # Set the entrypoint to an empty array to ensure the script runs as expected
-ENTRYPOINT ["sleep", "infinity"]
+ENTRYPOINT ["echo", "Hello", "World"]
 
 # Referring: https://github.com/dmnemec/copy_file_to_another_repo_action

@@ -2,7 +2,11 @@ FROM okatsn/my-quarto-space
 
 ADD entrypoint.sh /entrypoint.sh
 
-# CHECKPOINT: Due to the "exec /entrypoint.sh: exec format error", I'm trying the followings:
+# CHECKPOINT: Due to the "exec /entrypoint.sh: exec format error", I write the code in entrypoint.sh explicitly here, and replace
+# - `ENTRYPOINT [ "/entrypoint.sh" ]`
+# by
+# - ENTRYPOINT ["sleep", "infinity"]
+
 # Contents of entrypoint.sh (inlined)
 RUN echo "Current path..." && \
     pwd && \
@@ -12,6 +16,6 @@ RUN echo "Current path..." && \
     julia --project=@. -e 'using Pkg; Pkg.status()'
 
 # Set the entrypoint to an empty array to ensure the script runs as expected
-ENTRYPOINT []
+ENTRYPOINT ["sleep", "infinity"]
 
 # Referring: https://github.com/dmnemec/copy_file_to_another_repo_action

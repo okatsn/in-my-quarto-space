@@ -8,12 +8,15 @@ ADD entrypoint.sh /entrypoint.sh
 
 
 # Contents of entrypoint.sh (inlined)
+# The current directory is devspace!
+# Initiate @devspace is required since quarto uses IJulia
 RUN echo "Current path..." && \
     pwd && \
     echo "Initialize julia..." && \
-    julia --project=.@ -e 'using Pkg; Pkg.instantiate();' && \
+    julia --project=@. -e 'using Pkg; Pkg.instantiate();' && \
     echo "julia pkg status:" && \
     julia --project=@. -e 'using Pkg; Pkg.status()'
+
 
 # Set the entrypoint to an empty array to ensure the script runs as expected
 ENTRYPOINT ["echo", "Hello", "World"]
